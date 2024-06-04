@@ -1,6 +1,6 @@
 # Basketball Smart Referee
 
-Welcome to the **Basketball Smart Referee** project! This README will guide you through the project's purpose, implementation details, usage, and show te results of our method.
+Welcome to the **Basketball Smart Referee** project! This README will guide you through the project's purpose, implementation details, usage, and show the results of our method.
 
 **Team:**
 - Donovan Sanders
@@ -14,9 +14,8 @@ Welcome to the **Basketball Smart Referee** project! This README will guide you 
 1. [Abstract](#abstract)
 2. [Installation](#installation)
 3. [Usage](#usage)
-4. [Video/Image Results](#videoimage-results)
-5. [Reproduction Details](#reproduction-details)
-6. [Contributing](#contributing)
+4. [Video Results](#video-results)
+4. [Other Content](#other-content)
 ---
 
 
@@ -28,39 +27,60 @@ In this repo, we present the results and code for our project on creating an aut
 
 ---
 
-## Features
-
-- **Analytics Dashboard:** Get comprehensive insights into your website's traffic and performance.
-- **SEO Optimization:** Receive tips and suggestions to improve your site's SEO.
-- **Responsive Design:** Ensure your website looks great on all devices.
-- **Custom Reports:** Generate custom reports based on your specific needs.
-
----
-
 ## Installation
 
-To install WebPresence, follow these steps:
+# Setting up a conda environment
+Most of the code for our pipeline resides in the ```FastSAM/roboflow/run.ipynb``` Juptyter notebook. We rely on a RoboFlow and FastSAM, and have tested on an NVIDIA RTX 3090 GPU.
 
-1. **Clone the repository:**
-    ```bash
-    git clone https://github.com/yourusername/webpresence.git
-    ```
-2. **Navigate to the project directory:**
-    ```bash
-    cd webpresence
-    ```
-3. **Install the required dependencies:**
-    ```bash
-    npm install
-    ```
+In order to set up the correct conda environment, please first download Anaconda, then follow the environment setup instructions in [FastSAM](https://github.com/CASIA-IVA-Lab/FastSAM). Activate the environment with
+
+```conda activate FastSAM```
+
+Follow the additional steps to acquire a RoboFlow API key and install the necessary packages to run the RoboFlow models on GPU:
+
+```pip install inference supervision```
+
+Replace the variable api_key inside the python notebook ```FastSAM/roboflow/run.ipynb``` with a string corresponding to your API key. 
+
+# File Layout
+It is expected that the file layout closely follows that of FastSAM, considering almost all of the files at the top level are the same as FastSAM. The file structure should look like
+
+.
+├── FastSAM
+│   └── roboflow
+└──    └── run.ipynb
+
+
+# Setting up the data
+We assume a single-view camera of the basketball game with the rim approximately centered in the shot and the camera looking approximately from half-court. After gathering the data into ```movie.mov```, we will consider this as the path to your desired data. Please replace the two mov names in the first cell with this file path. In some cases, the rim may only be detected with a tighter crop on the video. For these cases, you should set the cropped video path to ```movie_cropped.mov``` and replace the corresponding file path in the notebook. To create such a cropped version of the input video, run the following command:
+
+```ffmpeg -i movie.mov -filter:v "crop=scale(in_w*0.5,in_h*0.5)" movie_cropped.mov```
+
+after installing ```ffmpeg``` with ```pip install ffmpeg```.
+
 
 ---
 
 ## Usage
 
-### Running the Application
+With all of the data set up and environment properly configured, we can now get to detecting basketball shots and teams! To do so, simply run the cells of the juypyter notebook run.ipynb. The resuls will be saved as a video ```output.MOV``` inside of the current roboflow directory. Visualized there, you will see the ball detections over the last N frames, the rim detection, the player detection, and a score counter for each time. 
 
-To start the application, use the following command:
+---
 
-```bash
-npm start
+## Video Results
+
+We provide some other visualizations and results of our method here. For example, here is a visualization of the detected pixels for each team colored with the color of their team:
+
+![seg](media/segmentation.gif)
+
+Here is an image visualizing the line of best fit for a ball's current trajectory and the point of intersection with the line for the basketball rim:
+
+![line](media/lines.png)
+
+## Other Content
+
+We also provide the additional content for our project including our created slides, our video, and the reports. For example, ```slides.pdf``` contains the slides for our project. We will also add our final report when it is finished.
+
+
+## Thanks
+Thanks to the amazing FastSAM repo, on which we based our project, and additional thanks to the awesome RoboFlow API. 
