@@ -1,25 +1,30 @@
-# WebPresence Project
+# Basketball Smart Referee
 
-Welcome to the **WebPresence** project! This README will guide you through the project's setup, usage, and contribution guidelines.
+Welcome to the **Basketball Smart Referee** project! This README will guide you through the project's purpose, implementation details, usage, and show te results of our method.
+
+**Team:**
+- Donovan Sanders
+- Andrew Cen
+- Alex Trevithick
 
 ---
 
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Installation](#installation)
-4. [Usage](#usage)
-5. [Contributing](#contributing)
-6. [License](#license)
-
+1. [Abstract](#abstract)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Video/Image Results](#videoimage-results)
+5. [Reproduction Details](#reproduction-details)
+6. [Contributing](#contributing)
 ---
 
-## Introduction
 
-WebPresence is a tool designed to enhance your online visibility by providing detailed analytics and optimization tips for your website. 
+## Abstract
 
-![WebPresence Logo](path/to/logo.png)
+In this repo, we present the results and code for our project on creating an automated referee for pickup basketball games. Assuming a single-view camera setup, we present a method to quickly detect made shots and the team of the scorer (assuming black/white uniforms). In order to accomplish this, we leverage a YoLo model finetuned for basketball, human, and rim detection from [RoboFlow](https://universe.roboflow.com/roboflow-universe-projects/basketball-players-fy4c2). Using the 2D tracking of the ball and the rim, we can calculate a 2D linear approximation of the ball trajectory and check if it intersects the correct area of the rim to make a point, along with other heuristics to ensure proper point counting including the cosine similarity of the rim with the ball trajectory along with checks on the ball height. Simultaneously, we leverage the SoTA [FastSAM](https://github.com/CASIA-IVA-Lab/FastSAM) model, for real-time segmentation of the players clothing. Using the detected pixels for both players bounding boxes, we can threshold the pixel intensity or check which player has a darker shirt. Note that our solution does not require training per game, and naturally generalizes due to the large-scale priors leveraged in our work.
+
+![WebPresence Logo](media/shots.gif)
 
 ---
 
