@@ -32,7 +32,9 @@ In this repo, we present the results and code for our project on creating an aut
 # Setting up a conda environment
 Most of the code for our pipeline resides in the ```FastSAM/roboflow/run.ipynb``` Juptyter notebook. We rely on a RoboFlow and FastSAM, and have tested on an NVIDIA RTX 3090 GPU.
 
-In order to set up the correct conda environment, please first download Anaconda, then follow the environment setup instructions in [FastSAM](https://github.com/CASIA-IVA-Lab/FastSAM). Activate the environment with
+In order to set up the correct conda environment, please first download Anaconda, then follow the environment setup instructions in [FastSAM](https://github.com/CASIA-IVA-Lab/FastSAM). Next, please clone FastSAM into the folder FastSAM, retaining the subfolder roboflow.
+
+Activate the environment with
 
 ```conda activate FastSAM```
 
