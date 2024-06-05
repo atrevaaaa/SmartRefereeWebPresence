@@ -16,6 +16,8 @@ Welcome to the **Basketball Smart Referee** project! This README will guide you 
 3. [Usage](#usage)
 4. [Video Results](#video-results)
 4. [Other Content](#other-content)
+5. [ESP32 Setup](#esp32-setup)
+5. [ESP32 and Python](#esp32-using-stream-for-python)
 ---
 
 
@@ -78,6 +80,27 @@ We provide some other visualizations and results of our method here. For example
 Here is an image visualizing the line of best fit for a ball's current trajectory and the point of intersection with the line for the basketball rim:
 
 ![line](media/lines.png)
+
+## ESP32: Setup 
+
+![esp32_pinout](media/ESP32S3_Pinout.png)
+
+To use the software in real-time, we used the ESP32-S3 Wroom 1 by Freenove. There multiple different ESP32 modules available, so please closely follow the tutorials that came with your ESP32 to correctly install the necessary drivers to connect it with your Arduino IDE. 
+
+The tutorials also contain other important information that will be important for setting up your ESP32, such as the camera model, board type, and PSRAM configuration (if available). It also provides links for the necessary ESP32 boards and libraries for the Arduino IDE that must be downloaded before it can be used. 
+
+All the code for the ESP32 can be found in the ```CameraWebServer_esp32s3/CameraWebServer_esp32s3.ino``` folder. Open the sketch in the Arduino IDE to easily upload the sketch to your ESP32. You may need to connect certain GPIO pins to the ESP32 ground to download the code to your model, please refer to the tutorials given for your ESP32 for more information if needed. Please read the ESP32:Streaming section for more setup information.
+
+## ESP32: Streaming 
+
+The ESP32 should have versions of the Wifi Station Mode and Camera Web Server examples for your model. Try running both of the examples to ensure your ESP32 is working properly.
+
+Wifi Station Mode to determine if your ESP32 is able to connect to your Wifi network. Camera Web Server to ensure your camera is properly working.
+
+## ESP32: Using Stream for Python 
+
+Once you have confirmed you can stream with your ESP32, we can finally move to using the software with the ESP32! First, upload the ```CameraWebServer_esp32s3.ino``` to your ESP32 and confirm the stream is running by navigating to the IP address given by the serial monitor. Assuing you are able to connect to the network, we can then use the ```roboflow_esp32_stream.ipynb``` notebook to use with a live pickup game! Simply open the file and run the cells within, similar to the above sections changing the API key as needed. 
+
 
 ## Other Content
 
